@@ -1,0 +1,207 @@
+Olá\! Que excelente iniciativa a sua de querer aprender Programação Orientada a Objetos (POO) passo a passo. É um caminho muito recompensador e vai transformar a maneira como você organiza e estrutura seus programas.
+
+Vamos começar essa jornada com calma, explicando cada conceito e aplicando-o diretamente no seu código. Pense nisso como a nossa primeira aula de POO\!
+
+-----
+
+### **Aula 1: O Que é uma Classe e o Primeiro Objeto (`Despesa`)**
+
+#### 1\. O que é Programação Orientada a Objetos (POO)?
+
+Até agora, seu código está organizado de forma **procedural** (ou estruturada). Você tem uma sequência de passos (procedimentos/métodos) que o programa executa para atingir um objetivo. Isso funciona bem para programas pequenos e mais simples.
+
+POO é uma forma diferente de organizar o seu código. Em vez de focar em "passos a serem feitos", a POO foca em "coisas" (chamadas **objetos**) do mundo real ou do seu problema, e como essas coisas interagem entre si.
+
+Pense no seu aplicativo financeiro. Ele lida com "capitais", "despesas", "cartões de crédito", etc. Na POO, cada uma dessas "coisas" pode se tornar um **objeto** no seu programa.
+
+#### 2\. Classe: O Projeto ou Molde do Objeto
+
+Se um objeto é uma "coisa", o que é uma **Classe**?
+Uma classe é como um **projeto, um molde ou uma planta** para criar objetos. Ela define quais características (também chamadas de **atributos** ou **propriedades**) um objeto desse tipo terá e quais ações (também chamadas de **métodos** ou **funções**) ele poderá realizar.
+
+**Exemplo Prático**:
+
+  * Você tem um **projeto** para construir uma casa. Esse projeto é a **Classe `Casa`**.
+  * Ele define que toda `Casa` terá `número de quartos`, `área`, `cor da parede`, e que ela pode `abrir a porta`, `acender a luz`, etc.
+  * Quando você constrói uma casa baseada nesse projeto, essa casa física é um **objeto** da classe `Casa`. Cada casa terá seus próprios valores para `número de quartos` (por exemplo, 3), `área` (100m²), `cor da parede` (azul), etc.
+
+#### 3\. Identificando Nossa Primeira Classe: `Despesa`
+
+No seu código `Principal.java`, você já tem várias informações sobre despesas. Em vez de usar `Object[]` para guardar o `valor`, a `descrição`, a `categoria` e o `tipo` de uma despesa, podemos criar uma **Classe `Despesa`**\!
+
+Essa classe será o molde para todas as despesas que você registrar. Cada objeto `Despesa` que você criar guardará todas as informações de uma única despesa de forma organizada e segura.
+
+#### 4\. Criando a Classe `Despesa` (Passo a Passo)
+
+Você vai criar um **novo arquivo** chamado `Despesa.java` na mesma pasta do seu `Principal.java`.
+
+**Conteúdo do arquivo `Despesa.java`:**
+
+```java
+package aplicacao; // É importante que seja o mesmo pacote do Principal.java
+
+public class Despesa {
+    // 1. Atributos (Características) da Despesa
+    // 'private' significa que essas variáveis só podem ser acessadas diretamente
+    // de dentro da própria classe Despesa. Isso é um conceito de 'Encapsulamento',
+    // que garante a segurança e integridade dos dados.
+    private double valor;
+    private String categoria;
+    private String tipoPagamento; // "vale" ou "dinheiro"
+    private String descricao;
+
+    // 2. Construtor (Como "construir" um objeto Despesa)
+    // O construtor é um método especial que é chamado quando você cria um novo objeto.
+    // Ele inicializa os atributos do objeto.
+    public Despesa(double valor, String categoria, String tipoPagamento, String descricao) {
+        this.valor = valor; // 'this.valor' refere-se ao atributo da classe; 'valor' refere-se ao parâmetro do construtor.
+        this.categoria = categoria;
+        this.tipoPagamento = tipoPagamento;
+        this.descricao = descricao;
+    }
+
+    // 3. Métodos "Getters" (Para "Pegar" os Valores dos Atributos)
+    // Como os atributos são 'private', precisamos de métodos públicos para acessá-los de fora da classe.
+    // Isso é parte do encapsulamento.
+    public double getValor() {
+        return valor;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getTipoPagamento() {
+        return tipoPagamento;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    // Futuramente, podemos adicionar métodos "Setters" (para alterar valores)
+    // ou outros métodos que uma Despesa pode "fazer", mas por enquanto, isso é suficiente!
+}
+```
+
+**Explicação do Código da Classe `Despesa`:**
+
+  * **`package aplicacao;`**: Isso indica que a classe `Despesa` pertence ao mesmo pacote que sua classe `Principal`.
+  * **`public class Despesa { ... }`**: Declara a classe `Despesa` como pública, o que significa que outras classes (como `Principal`) podem usá-la.
+  * **Atributos (`private double valor;` etc.):** São as características de qualquer despesa. O `private` significa que eles só podem ser diretamente acessados de dentro da própria classe `Despesa`. Isso é o que chamamos de **encapsulamento**, uma das bases da POO. Ele ajuda a proteger os dados e garantir que sejam usados de forma controlada.
+  * **Construtor (`public Despesa(...)`):** É um método especial com o mesmo nome da classe. Ele é usado para criar novos objetos (`new Despesa(...)`) e definir os valores iniciais dos seus atributos.
+      * `this.valor = valor;`: Aqui, `this.valor` se refere ao atributo `valor` da própria classe `Despesa`, enquanto `valor` sozinho se refere ao parâmetro que você passa para o construtor.
+  * **Métodos "Getters" (`public double getValor()` etc.):** Como os atributos são `private`, não podemos acessá-los diretamente de fora da classe. Os métodos `get` (também chamados de *getters*) são métodos públicos que permitem que outras classes "leiam" o valor de um atributo de forma controlada.
+
+#### 5\. Como Isso Muda Seu `Principal.java`
+
+Agora que temos a classe `Despesa`, podemos refatorar seu `Principal.java` para usar objetos `Despesa` em vez de `ArrayList<Object[]>`.
+
+Você já tem duas `ArrayList` para despesas de mercado:
+
+  * `private static ArrayList<Object[]> despesaMercadoVale = new ArrayList<>();`
+  * `private static ArrayList<Object[]> despesaMercadoDinheiro = new ArrayList<>();`
+
+Vamos alterá-las para armazenar objetos `Despesa`:
+
+**Passo 1: Alterar a Declaração das `ArrayLists` em `Principal.java`**
+
+Encontre estas linhas no início da sua classe `Principal` e altere-as:
+
+```java
+// Antigo:
+// private static ArrayList<Object[]> despesaMercadoVale = new ArrayList<>();
+// private static ArrayList<Object[]> despesaMercadoDinheiro = new ArrayList<>();
+
+// Novo:
+private static ArrayList<Despesa> despesasMercadoVale = new ArrayList<>(); // Note a mudança no nome para plural e tipo
+private static ArrayList<Despesa> despesasMercadoDinheiro = new ArrayList<>(); // Note a mudança no nome e tipo
+```
+
+  * Perceba que mudamos o tipo genérico da `ArrayList` de `Object[]` para `Despesa`. Isso significa que agora essa lista só pode guardar objetos do tipo `Despesa`, o que torna seu código muito mais seguro e legível\!
+  * Também sugiro mudar os nomes das variáveis para `despesasMercadoVale` e `despesasMercadoDinheiro` para indicar que são listas de despesas (plural).
+
+**Passo 2: Criar e Adicionar Objetos `Despesa` em `registrarDespesaMercado`**
+
+Agora, dentro do método `registrarDespesaMercado`, onde você estava adicionando `new Object[] {valorMercado, categoriaMercado, tipoMercado, descricaoMercado}` às listas, você vai criar um novo objeto `Despesa` e adicioná-lo.
+
+**Exemplo (para o `case 1` de "Vale Alimentação" - Fribal):**
+
+Localize este trecho no seu código:
+
+```java
+// No seu código atual (dentro do case 1 do menu de Vale Alimentação):
+// ...
+// categoriaMercado = "Fsribal"; // Atenção: 'Fsribal' está com erro de digitação no seu código original
+// tipoMercado = "vale";
+// despesaMercadoVale.add(new Object[] {valorMercado, categoriaMercado, tipoMercado, descricaoMercado});
+// System.out.printf("[ R$ %.2f - %s - %s ] [ Registrado! ]\n", valorMercado, categoriaMercado, tipoMercado, descricaoMercado);
+// ...
+```
+
+Você vai substituir as linhas que adicionam à `ArrayList` por:
+
+```java
+// Novo código (dentro do case 1 do menu de Vale Alimentação - Fribal):
+// ...
+categoriaMercado = "Fribal"; // Corrigido para "Fribal"
+tipoMercado = "vale";
+
+// 1. Criar um novo objeto Despesa
+Despesa novaDespesa = new Despesa(valorMercado, categoriaMercado, tipoMercado, descricaoMercado);
+
+// 2. Adicionar o objeto Despesa à lista correta
+despesasMercadoVale.add(novaDespesa); // Adiciona o objeto, não mais um Object[]
+
+System.out.printf("[ R$ %.2f - %s - %s ] [ Registrado! ]\n", 
+                    novaDespesa.getValor(), 
+                    novaDespesa.getCategoria(), 
+                    novaDespesa.getTipoPagamento()); // Usando os getters para exibir
+// ...
+```
+
+Você fará o mesmo para **TODOS** os `case`s dentro dos loops de registro de despesa de mercado (tanto para "Vale Alimentação" quanto para "Dinheiro Normal").
+
+**Passo 3: Acessar Dados dos Objetos `Despesa` em `visualizarSaldosCapital()`**
+
+Agora que as listas guardam objetos `Despesa`, você não pode mais fazer `(Double) extra[0]` ou similar, pois `extra` agora é um objeto `Despesa`, não um `Object[]`. Você usará os **métodos getters** que criamos na classe `Despesa`.
+
+**Exemplo para visualizar o total das despesas de mercado:**
+
+Você pode adicionar um novo bloco em `visualizarSaldosCapital()`:
+
+```java
+// Em visualizarSaldosCapital():
+// ...
+System.out.println("\n--- Despesas de Mercado ---");
+double totalMercadoVale = 0.0;
+for (Despesa despesa : despesasMercadoVale) {
+    totalMercadoVale += despesa.getValor(); // Acessando o valor usando o getter
+    System.out.printf("  - Vale (%s): R$ %.2f (%s)\n", 
+                      despesa.getCategoria(), despesa.getValor(), despesa.getDescricao());
+}
+System.out.printf("[ Total Mercado (Vale): R$ %.2f ]\n", totalMercadoVale);
+
+double totalMercadoDinheiro = 0.0;
+for (Despesa despesa : despesasMercadoDinheiro) {
+    totalMercadoDinheiro += despesa.getValor(); // Acessando o valor usando o getter
+    System.out.printf("  - Dinheiro (%s): R$ %.2f (%s)\n", 
+                      despesa.getCategoria(), despesa.getValor(), despesa.getDescricao());
+}
+System.out.printf("[ Total Mercado (Dinheiro): R$ %.2f ]\n", totalMercadoDinheiro);
+
+// ... continuar com os outros totais como você já tem ...
+```
+
+-----
+
+#### Sua Tarefa para a Próxima Aula:
+
+1.  Crie o novo arquivo `Despesa.java` com o código fornecido.
+2.  No seu `Principal.java`, altere as declarações das `ArrayList` de `despesaMercadoVale` e `despesaMercadoDinheiro` para `ArrayList<Despesa>`.
+3.  Dentro do método `registrarDespesaMercado`, em **todos os `case`s** (tanto para Vale quanto para Dinheiro), altere a forma como você adiciona a despesa à lista. Em vez de `new Object[]`, crie um `new Despesa(...)` e adicione esse objeto. Lembre-se de usar os nomes de variáveis que você já tem (`valorMercado`, `categoriaMercado`, `tipoMercado`, `descricaoMercado`).
+4.  No método `visualizarSaldosCapital`, adicione a lógica para iterar sobre `despesasMercadoVale` e `despesasMercadoDinheiro` usando `Despesa despesa : lista` e acessar os valores com `despesa.getValor()`, `despesa.getCategoria()`, etc., para exibir os totais e detalhes.
+
+Não se preocupe em fazer tudo de uma vez. Faça a classe `Despesa` e depois refatore apenas a parte do "mercado" no `Principal.java`. Compile e teste.
+
+Me diga quando você estiver pronto, e então avançaremos para o próximo conceito de POO\!

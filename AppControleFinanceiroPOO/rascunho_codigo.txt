@@ -1,0 +1,10 @@
+// Criar um novo objeto Despesa
+																														DespesaMercado novaDespesaMercadoVale = new DespesaMercado(valorMercado, categoriaMercado, tipoMercado, descricaoMercado);
+																														// Adicionar o objeto Despesa à lista correta
+																														todasDespesas.add(novaDespesaMercadoVale); // Adiciona o objeto, não mais um Object[]
+																														// Usando os getters para exibir
+																														System.out.printf("[ R$ %.2f - %s - %s - %s ] [Registrado! ]\n",
+																															novaDespesaMercadoVale.getValor(),
+																															novaDespesaMercadoVale.getCategoria(),
+																															novaDespesaMercadoVale.getTipoPagamento(),
+																															novaDespesaMercadoVale.getDescricao());

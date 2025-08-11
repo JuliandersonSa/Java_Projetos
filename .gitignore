@@ -1,0 +1,21 @@
+# Ignorar arquivos de classe Java e pastas de compilação
+*.class
+**/target/
+**/bin/
+
+# Ignorar arquivos específicos de IDEs populares
+.idea/          # Pasta do IntelliJ IDEA
+*.iml           # Arquivos de módulo do IntelliJ
+.classpath      # Arquivos de projeto do Eclipse
+.project        # Arquivos de projeto do Eclipse
+.settings/      # Pasta de configurações do Eclipse
+*.swp           # Arquivos temporários do VIM
+
+# Ignorar arquivos temporários e de log
+*.log
+*.tmp
+
+# Ignorar arquivos sensíveis ou de configuração local
+.env
+# private_key.pem
+# credentials.json
