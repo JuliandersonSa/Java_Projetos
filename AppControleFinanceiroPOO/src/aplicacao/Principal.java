@@ -1245,11 +1245,10 @@ public class Principal{
 					System.out.printf("TOTAL DESPESA CARTÃO DE CRÉDITO: R$ %.2f\n", totalDespesaCredito);
 					System.out.printf("TOTAL DESPESA MERCADO: R$ %.2f\n",totalDespesaMercado);
 					System.out.printf("TOTAL DESPESA VARIADA: R$ %.2f\n", totalDespesaVariada);
-			} //fecha-metodo-visualizarSaldos
-			
+					
 					double totalTodosCapitais = 0.0;
 					double totalCapitalSalario = 0.0;
-					double totalCapitalExtra =
+					double totalCapitalExtra = 0.0;
 					double totalCapitalValeAlimentacao = 0.0;
 					double totalCapitalValeTransporte = 0.0;
 					
@@ -1261,11 +1260,24 @@ public class Principal{
 					for (Capital capital : todosCapitais) {
 							totalTodosCapitais += capital.getValor();
 							
-							if (capital instanceof CapitaSalario) {
+							if (capital instanceof CapitalSalario) {
 									totalCapitalSalario += capital.getValor();
 									temCapialSalario = true;
 								}
-						}
-
-				
+							if (capital instanceof CapitalExtra) {
+									totalCapitalExtra += capital.getValor();
+									temCapitalExtra = true;
+								}
+							if (capital instanceof CapitalValeAlimentacao) {
+									totalCapitalValeAlimentacao += capital.getValor();
+									temCapitalValeAlimentacao = true;
+								}
+							if (capital instanceof CapitalValeTransporte) {
+									totalCapitalValeTransporte += capital.getValor();
+									temCapitalValeTransporte = true;
+								}
+						} //fecha-for
+					System.out.printf("Capital Total: R$ %.2f\n", totalTodosCapitais);
+			} //fecha-metodo-visualizarSaldos
+			
 	} //fecha-clsse-Pricipal
