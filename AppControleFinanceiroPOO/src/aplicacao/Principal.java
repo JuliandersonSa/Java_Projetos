@@ -1164,118 +1164,21 @@ public class Principal{
 			// Menu para visualizar todos saldos de capital somados
 			private static void visualizarSaldosCapital() {	
 					double totalTodasDespesas = 0.0;
-					double totalDespesaFixa = 0.0;
-					double totalDespesaCredito = 0.0;
-					double totalDespesaMercado = 0.0;
-					double totalDespesaVariada = 0.0;
-					
-					boolean temDespesaFixa = false;
-					boolean temDespesaCredito = false;
-					boolean temDespesaMercado = false;
-					boolean temDespesaVariada = false;
-					
 					for (Despesa despesa : todasDespesas) {
 							totalTodasDespesas += despesa.getValor();
-							
-							if (despesa instanceof DespesaFixa) {
-									totalDespesaFixa += despesa.getValor();
-									temDespesaFixa = true;
-								}	
-							if (despesa instanceof DespesaCredito) {
-									totalDespesaCredito += despesa.getValor();
-									temDespesaCredito = true;
-								}	
-							if (despesa instanceof DespesaMercado) {
-									totalDespesaMercado += despesa.getValor();
-									temDespesaMercado = true;
-								}
-							if (despesa instanceof DespesaVariada) {
-									totalDespesaVariada += despesa.getValor();
-									temDespesaVariada = true;
-								}
-						} //fecha-for
+						}
 					
-					if (temDespesaFixa) {
-							System.out.println("\n-----------------------------------");
-							System.out.println("\n=== DESPESA FIXA DETALHADA ===");
-							for (Despesa despesa : todasDespesas) {
-									if (despesa instanceof DespesaFixa) {
-										DespesaFixa d = (DespesaFixa) despesa;
-										System.out.printf("R$ %.2f - %s - %s\n", d.getValor(), d.getCategoria(), d.getDescricao());
-									}
-								}
-						} //fecha-if
-						
-					if (temDespesaCredito) {
-							System.out.println("\n-----------------------------------");
-							System.out.println("\n=== DESPESA CARTÃO DE CRÉDITO DETALHADA ===");
-							for (Despesa despesa : todasDespesas) {
-									if (despesa instanceof DespesaCredito) {
-											DespesaCredito d = (DespesaCredito) despesa;
-											System.out.printf("R$ %.2f - %dx de %.2f - %s - %s\n", d.getValor(), d.getParcelas(), d.getValorParcela(), d.getBanco(), d.getDescricao());
-										}
-								}
-						} //fecha-if
-						
-					if (temDespesaMercado) {
-							System.out.println("\n-----------------------------------");
-							System.out.println("\n=== DESPESA MERCADO DETALHADA ===");
-							for (Despesa despesa : todasDespesas) {
-									if (despesa instanceof DespesaMercado) {
-											DespesaMercado d = (DespesaMercado) despesa;
-											System.out.printf("R$ %.2f - %s - %s - %s\n", d.getValor(), d.getCategoria(), d.getTipoPagamento(), d.getDescricao());
-										}
-								}
-						} //fecha-if
-						
-					if (temDespesaVariada) {
-							System.out.println("\n-----------------------------------");
-							System.out.println("\n=== DESPESA VARIADA DETALHADA ===");
-							for (Despesa despesa : todasDespesas) {
-									if (despesa instanceof DespesaVariada) {
-											DespesaVariada d = (DespesaVariada) despesa;
-											System.out.printf("R$ %.2f - %s - %s\n", d.getValor(), d.getCategoria(), d.getDescricao());
-										}
-								}
-						} //fecha-if
-					
-					System.out.println("\n-----------------------------------");
-					System.out.printf("TOTAL TODAS DESPESAS: R$ %.2f\n", totalTodasDespesas);
-					System.out.printf("TOTAL DESPESA FIXA: R$ %.2f\n", totalDespesaFixa);
-					System.out.printf("TOTAL DESPESA CARTÃO DE CRÉDITO: R$ %.2f\n", totalDespesaCredito);
-					System.out.printf("TOTAL DESPESA MERCADO: R$ %.2f\n",totalDespesaMercado);
-					System.out.printf("TOTAL DESPESA VARIADA: R$ %.2f\n", totalDespesaVariada);
-					
-					double totalTodosCapitais = 0.0;
-					double totalCapitalSalario = 0.0;
-					double totalCapitalExtra = 0.0;
-					double totalCapitalValeAlimentacao = 0.0;
-					double totalCapitalValeTransporte = 0.0;
-					
-					boolean temCapialSalario = false;
-					boolean temCapitalExtra = false;
-					boolean temCapitalValeAlimentacao = false;
-					boolean temCapitalValeTransporte = false;
+					for (Despesa despesa : todasDespesas) {
+							despesa.exibirDetalhes();
+						}
 					
 					for (Capital capital : todosCapitais) {
+							capital.exibirDetalhes();
+						}
+					
+					double totalTodosCapitais = 0.0;		
+					for (Capital capital : todosCapitais) {
 							totalTodosCapitais += capital.getValor();
-							
-							if (capital instanceof CapitalSalario) {
-									totalCapitalSalario += capital.getValor();
-									temCapialSalario = true;
-								}
-							if (capital instanceof CapitalExtra) {
-									totalCapitalExtra += capital.getValor();
-									temCapitalExtra = true;
-								}
-							if (capital instanceof CapitalValeAlimentacao) {
-									totalCapitalValeAlimentacao += capital.getValor();
-									temCapitalValeAlimentacao = true;
-								}
-							if (capital instanceof CapitalValeTransporte) {
-									totalCapitalValeTransporte += capital.getValor();
-									temCapitalValeTransporte = true;
-								}
 						} //fecha-for
 					System.out.printf("Capital Total: R$ %.2f\n", totalTodosCapitais);
 			} //fecha-metodo-visualizarSaldos

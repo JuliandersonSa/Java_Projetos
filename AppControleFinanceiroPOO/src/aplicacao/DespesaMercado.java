@@ -32,6 +32,11 @@ public class DespesaMercado extends Despesa {
 				return tipoPagamento;
 			} //fecha-método-TipoPagamento		
 			
+		@Override
+		public void exibirDetalhes() {
+				System.out.printf("Total Despesa Mercado: R$ %.2f\n", getValor());
+			}
+			
 			// Futuramente, iremos adicionar métodos "Setters" (Para alterar valores)
 			// e outros métodos que uma Despesa pode "fazer".
 			

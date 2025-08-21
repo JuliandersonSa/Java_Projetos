@@ -5,4 +5,9 @@ public class CapitalValeAlimentacao extends Capital {
 		public CapitalValeAlimentacao (double valor, String categoria, String descricao) {
 				super (valor, categoria, descricao);
 			}
+			
+		@Override
+		public void exibirDetalhes() {
+				System.out.printf("Total Vale Alimentação: R$ %.2f\n", getValor());
+			}
 	}//fecha-classe-CapitalValeAlimentacao

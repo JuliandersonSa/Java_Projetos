@@ -21,4 +21,9 @@ public class DespesaCredito extends Despesa {
 		public String getBanco() {
 				return banco;
 			}
+			
+		@Override
+		public void exibirDetalhes() {
+				System.out.printf("Total Despesa Crédito: R$ %.2f\n", getValor());
+			}
 	} //fecha-classe-DespesaCredito

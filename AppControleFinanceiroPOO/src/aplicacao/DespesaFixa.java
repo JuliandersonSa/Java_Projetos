@@ -18,6 +18,11 @@ public class DespesaFixa extends Despesa {
 		public String getCategoria() {
 				return categoria;
 			}
+			
+		@Override
+		public void exibirDetalhes() {
+				System.out.printf("Total Despesa Fixa: R$ %.2f\n", getValor());
+			}
 		// Não precisamos mais dos métodos getValor() e getDescricao() 
 		// Eles já foram herdados da classe Despesa.
 	} //fecha-classe-DespesaFixa

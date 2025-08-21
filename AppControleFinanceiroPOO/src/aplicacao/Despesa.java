@@ -17,4 +17,6 @@ public abstract class Despesa {
 		public String getDescricao() {
 			return this.descricao;
 			}
+			
+		public abstract void exibirDetalhes();
 	} //fecha-classe-abstrada-Despesa

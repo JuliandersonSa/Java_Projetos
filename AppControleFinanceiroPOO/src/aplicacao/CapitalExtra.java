@@ -9,4 +9,9 @@ public class CapitalExtra extends Capital {
 		public CapitalExtra(double valor, String categoria, String descricao) {
 				super(valor, categoria, descricao);
 			} //fecha-método-construtor
+			
+		@Override
+		public void exibirDetalhes() {
+				System.out.printf("Total Extra: R$ %.2f\n", getValor());
+			}
 	} //fecha-classe-Extra
