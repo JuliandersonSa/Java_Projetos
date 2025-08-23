@@ -13,6 +13,10 @@ public class DespesaVariada extends Despesa {
 			}
 			
 		@Override
+		public String getTipo() {
+				return "Despesa Variada";
+			}
+		@Override
 		public void exibirDetalhes() {
 				System.out.printf("Total Despesa Variada: R$ %.2f\n", getValor());
 			}

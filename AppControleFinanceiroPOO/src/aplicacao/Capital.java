@@ -23,5 +23,6 @@ public abstract class Capital {
 				return this.descricao;
 			}
 			
+		public abstract String getTipo();
 		public abstract void exibirDetalhes();
 	} //fecha-classe-abstrata-Capital

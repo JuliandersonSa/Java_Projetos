@@ -19,14 +19,15 @@ public class Principal{
 						System.out.println("=== MENU_PRINCIPAL ===");
 						System.out.println(" [1] Registrar Capital");
 						System.out.println(" [2] Registrar Despesa");
-						System.out.println(" [3] Visualizar saldos");
-						System.out.println(" [4] Sair\n");
+						System.out.println(" [3] Visualizar Capitais");
+						System.out.println(" [4] Visualizar Despesas");
+						System.out.println(" [5] Sair\n");
 						System.out.print("Escolha uma opção: ");
 						
 						try {
 								opcao = teclado.nextInt();
 								teclado.nextLine();
-								if (opcao < 1 || opcao > 4) {
+								if (opcao < 1 || opcao > 5) {
 										System.out.println("\n-----------------------------------");
 										System.out.println("[Erro] Ecolha uma opção entre 1 e 4.\n");
 									} else {
@@ -38,9 +39,12 @@ public class Principal{
 														registrarDespesa(teclado);
 														break;
 													case 3:
-														visualizarSaldosCapital();
+														visualizarCapitalPorTipo(teclado);
 														break;
 													case 4:
+														visualizarDespesaPorTipo(teclado);
+														break;
+													case 5:
 														System.out.println("\n-----------------------------------");
 														System.out.println("[ Saindo do programa... ]");
 														break;
@@ -51,7 +55,7 @@ public class Principal{
 									System.out.println("[Erro] Digite um número.\n");
 									teclado.nextLine();
 								} //fecha-catch
-					} while (opcao != 4);
+					} while (opcao != 5);
 			} //fecha-metodo-main
 			
 			
@@ -1161,26 +1165,127 @@ public class Principal{
 							} //fecha-while 
 					} //fecha-método-registrarDespesaVariada
 				
-			// Menu para visualizar todos saldos de capital somados
-			private static void visualizarSaldosCapital() {	
-					double totalTodasDespesas = 0.0;
-					for (Despesa despesa : todasDespesas) {
-							totalTodasDespesas += despesa.getValor();
-						}
-					
-					for (Despesa despesa : todasDespesas) {
-							despesa.exibirDetalhes();
-						}
-					
-					for (Capital capital : todosCapitais) {
-							capital.exibirDetalhes();
-						}
-					
+				private static void visualizarCapitalPorTipo(Scanner teclado) {
+				int opcao = 0;
+				do {
+						System.out.println("===VISUALIZAR CAPITAIS POR TIPO===");
+						System.out.println("[1] Salário");
+						System.out.println("[2] Vale Alimentação");
+						System.out.println("[3] Vale Transporte");
+						System.out.println("[4] Extras");
+						System.out.println("[5] Voltar");
+						System.out.print("Escolha uma opção: ");
+						
+						try {
+								opcao = teclado.nextInt();
+								teclado.nextLine();	
+								
+								if (opcao < 1 || opcao > 5) {
+										System.out.println("[Erro] Escolha uma opção entre 1 e 5.");
+									} else {
+											String tipoEscolha = "";
+											boolean achou = false;
+											switch (opcao) {
+													case 1:
+														tipoEscolha = "Salário";
+														break;
+													case 2: 
+														tipoEscolha = "vale Alimentação";
+														break;
+													case 3:
+														tipoEscolha = "Vale Transporte";
+														break;
+													case 4:
+														tipoEscolha = "Extras";
+														break;
+													case 5:
+														break;
+												}
+											for (Capital capital : todosCapitais) {
+													if (capital.getTipo().equals(tipoEscolha)) {
+															capital.exibirDetalhes();
+															achou = true;
+														}
+												}
+											if (!achou) {
+													System.out.println("Nenhum registro encontrado!.");
+												}
+										}
+							} catch (InputMismatchException e) {
+									System.out.println("[Erro] Digite um número.");
+									teclado.nextLine();
+								}
+					} while (opcao != 5);
 					double totalTodosCapitais = 0.0;		
 					for (Capital capital : todosCapitais) {
 							totalTodosCapitais += capital.getValor();
 						} //fecha-for
 					System.out.printf("Capital Total: R$ %.2f\n", totalTodosCapitais);
+			
+				}//fecha-método-visualizarCapitaisPorTipo
+			
+			// Menu para visualizar todas as despesas e capitais por tipo
+			private static void visualizarDespesaPorTipo(Scanner teclado) {
+				int opcao = 0;
+				do {
+						System.out.println("===VISUALIZAR DESPESAS POR TIPO===");
+						System.out.println("[1] Despesa Cartão Crédito");
+						System.out.println("[2] Despesa Fixa");
+						System.out.println("[3] Despesa Mercado");
+						System.out.println("[4] Despesa Variada");
+						System.out.println("[5] Voltar");
+						System.out.print("Escolha uma opção: ");
+						
+						try {
+								opcao = teclado.nextInt();
+								teclado.nextLine();
+								
+								if (opcao < 1 || opcao > 5) {
+										System.out.println("[Erro] Escolha uma opção entre 1 e 5.");
+									} else {
+											String tipoEscolha = "";
+											boolean achou = false;
+											double totalDespesaTipo = 0.0;
+											switch (opcao) { 
+													case 1:
+														tipoEscolha = "Despesa Cartão Crédito";
+														break;
+													case 2:
+														tipoEscolha = "Despesa Fixa";
+														break;
+													case 3:
+														tipoEscolha = "Despesa Mercado";
+														break;
+													case 4:
+														tipoEscolha = "Despesa Variada";
+														break;
+													case 5:
+														break;
+												}
+											for (Despesa despesa : todasDespesas) {
+													if (despesa.getTipo().equals(tipoEscolha)) {
+															despesa.exibirDetalhes();
+															totalDespesaTipo += despesa.getValor();
+															achou = true;
+														}
+													System.out.printf("Total %s R$ %.2f\n\n", tipoEscolha, totalDespesaTipo);
+												}
+											if (!achou) {
+													System.out.println("Nenhum registro encontrado!");
+												}
+										}
+							} catch (InputMismatchException e) {
+									System.out.println("[Erro] Digite um número.");
+									teclado.nextLine();
+								}
+					} while (opcao != 5);
+					double totalTodasDespesas = 0.0;
+					for (Despesa despesa : todasDespesas) {
+							totalTodasDespesas += despesa.getValor();
+						}
+					System.out.printf("Despesa Total: R$ %.2f\n", totalTodasDespesas);
+			
+					
 			} //fecha-metodo-visualizarSaldos
 			
 	} //fecha-clsse-Pricipal

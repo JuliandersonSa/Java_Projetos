@@ -7,6 +7,10 @@ public class CapitalValeAlimentacao extends Capital {
 			}
 			
 		@Override
+		public String getTipo() {
+				return "Vale Alimentação";
+			}
+		@Override
 		public void exibirDetalhes() {
 				System.out.printf("Total Vale Alimentação: R$ %.2f\n", getValor());
 			}

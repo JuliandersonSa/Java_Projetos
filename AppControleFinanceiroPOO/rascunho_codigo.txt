@@ -1,0 +1,383 @@
+Ótima ideia\! Criar e usar um ID único é a forma mais robusta e profissional de gerir os teus dados. Como disseste, o método de remover por índice que te dei anteriormente não é ideal, porque se removeres um item da lista, a posição dos restantes muda.
+
+Usar um ID é como usar um número de identificação único para cada pessoa num grupo. A posição de uma pessoa na fila pode mudar, mas o seu número de identificação será sempre o mesmo.
+
+Vamos fazer um passo a passo completo, detalhado, sem omitir código, para que possas implementar isso facilmente.
+
+-----
+
+### Passo 1: Aumentar o Contrato (Adicionar ID em `Capital.java` e `Despesa.java`)
+
+Vamos adicionar um novo atributo (o ID) às tuas classes pai (`Capital` e `Despesa`). Para que o ID seja gerado automaticamente e seja único para cada novo objeto, vamos usar uma variável especial chamada **`static`**.
+
+  * **O que é `static`?** Uma variável `static` pertence à classe, não a um objeto individual. É como um balcão de senhas que todas as pessoas da fila usam. Cada vez que alguém pega uma senha, o número no balcão aumenta para a próxima pessoa.
+
+#### 1.1 - No Ficheiro `Capital.java`
+
+Vamos adicionar a variável `proximoId` para gerar os IDs e a variável `id` para guardar o ID do objeto.
+
+**Instruções:**
+
+1.  Abre o ficheiro `Capital.java`.
+2.  Copia e cola todo o código abaixo, substituindo o conteúdo atual.
+
+<!-- end list -->
+
+```java
+package aplicacao;
+
+public abstract class Capital {
+    // VARIÁVEL STATIC - É como um contador que pertence à classe
+    private static int proximoId = 1;
+    
+    // VARIÁVEL DO OBJETO - Cada objeto terá o seu próprio ID
+    private int id;
+    
+    private double valor;
+    private String categoria;
+    private String descricao;
+    
+    // Construtor: Aqui é onde o ID é atribuído
+    public Capital (double valor, String categoria, String descricao) {
+        this.id = proximoId++; // Atribui o ID atual e depois aumenta o contador
+        this.valor = valor;
+        this.categoria = categoria;
+        this.descricao = descricao;
+    }
+    
+    // Getter para o ID. É a única forma de o vermos de fora da classe.
+    public int getId() {
+        return this.id;
+    }
+    
+    // Getters para os outros atributos
+    public double getValor() {
+        return this.valor;
+    }
+    public String getCategoria() {
+        return this.categoria;
+    }
+    public String getDescricao() {
+        return this.descricao;
+    }
+    
+    // Setters para que o valor e a descrição possam ser alterados
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    // Método abstrato que cada classe filha deve implementar
+    public abstract void exibirDetalhes();
+} //fecha-classe-abstrata-Capital
+```
+
+#### 1.2 - No Ficheiro `Despesa.java`
+
+Vais fazer as mesmas alterações na tua classe `Despesa`.
+
+**Instruções:**
+
+1.  Abre o ficheiro `Despesa.java`.
+2.  Copia e cola todo o código abaixo, substituindo o conteúdo atual.
+
+<!-- end list -->
+
+```java
+package aplicacao;
+
+public abstract class Despesa {
+    // VARIÁVEL STATIC para gerar IDs únicos
+    private static int proximoId = 1;
+    
+    // VARIÁVEL DO OBJETO para guardar o ID
+    private int id;
+    
+    private double valor;
+    private String descricao;
+    
+    // Construtor: Atribui o ID no momento da criação
+    public Despesa(double valor, String descricao) {
+        this.id = proximoId++;
+        this.valor = valor;
+        this.descricao = descricao;
+    }
+    
+    // Getter para o ID
+    public int getId() {
+        return this.id;
+    }
+    
+    // Getters para os outros atributos
+    public double getValor() {
+        return this.valor;
+    }
+    public String getDescricao() {
+        return this.descricao;
+        }
+
+    // Setters para modificar o valor e a descrição
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
+    // Método abstrato que cada classe filha deve implementar
+    public abstract void exibirDetalhes();
+} //fecha-classe-abstrada-Despesa
+```
+
+-----
+
+### Passo 2: Adaptar o `Principal.java`
+
+Agora, a tua classe principal só precisa de procurar os registos pelo ID em vez de pela posição.
+
+#### 2.1 - Atualizar o Menu Principal
+
+**Instruções:**
+
+1.  Abre o ficheiro `Principal.java`.
+2.  No método `main`, encontra o teu `switch` e atualiza o menu para incluir as novas opções de remover e modificar.
+
+<!-- end list -->
+
+```java
+// Dentro do teu método main
+System.out.println(" [4] Remover registro");
+System.out.println(" [5] Modificar registro");
+System.out.println(" [6] Sair\n");
+
+System.out.print("Escolha uma opção: ");
+
+// E no switch, adiciona os novos 'cases'
+switch (opcao) {
+    case 1:
+        // ...
+        break;
+    case 2:
+        // ...
+        break;
+    case 3:
+        // ...
+        break;
+    case 4:
+        removerRegistro(teclado);
+        break;
+    case 5:
+        modificarRegistro(teclado);
+        break;
+    case 6:
+        System.out.println("\n-----------------------------------");
+        System.out.println("A sair...");
+        break;
+    default:
+        System.out.println("\n-----------------------------------");
+        System.out.println("[Erro] Escolha uma opção entre 1 e 6.");
+}
+```
+
+#### 2.2 - O Método `removerRegistro()` Completo
+
+Este método irá:
+
+  * Perguntar ao utilizador se quer remover um Capital ou uma Despesa.
+  * Listar todos os registos com o seu ID.
+  * Pedir ao utilizador para digitar o ID do registo a remover.
+  * Procurar e remover o registo com esse ID.
+
+**Instruções:**
+
+1.  Copia e cola o código abaixo na tua classe `Principal.java`.
+
+<!-- end list -->
+
+```java
+// Função: Permite ao utilizador remover um Capital ou uma Despesa pelo seu ID único.
+// Utiliadade: Remove a necessidade de remover pelo índice da lista, que é propenso a erros.
+private static void removerRegistro(Scanner teclado) {
+    System.out.println("\n-----------------------------------");
+    System.out.println("=== REMOVER REGISTRO ===");
+    System.out.println("[1] Remover Capital");
+    System.out.println("[2] Remover Despesa");
+    System.out.print("Escolha o tipo de registro a remover: ");
+
+    int tipoRemover = teclado.nextInt();
+    teclado.nextLine(); // Limpa o buffer
+
+    if ((tipoRemover == 1 && todosCapitais.isEmpty()) || (tipoRemover == 2 && todasDespesas.isEmpty())) {
+        System.out.println("\n-----------------------------------");
+        System.out.println("[Erro] Não há registros para remover.");
+        return;
+    }
+
+    if (tipoRemover == 1) {
+        System.out.println("\n-----------------------------------");
+        System.out.println("=== Capitais Registrados ===");
+        // Itera sobre a lista e exibe cada ID e detalhes do Capital
+        for (Capital capital : todosCapitais) {
+            System.out.printf("[ID: %d] ", capital.getId());
+            capital.exibirDetalhes();
+        }
+        System.out.print("Digite o ID do registro a remover: ");
+        int idParaRemover = teclado.nextInt();
+        teclado.nextLine();
+
+        // Procura e remove o item com o ID. A função removeIf procura o item na lista.
+        boolean removido = todosCapitais.removeIf(capital -> capital.getId() == idParaRemover);
+
+        if (removido) {
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Sucesso] Registro removido.");
+        } else {
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Erro] ID não encontrado.");
+        }
+    } else if (tipoRemover == 2) {
+        System.out.println("\n-----------------------------------");
+        System.out.println("=== Despesas Registradas ===");
+        for (Despesa despesa : todasDespesas) {
+            System.out.printf("[ID: %d] ", despesa.getId());
+            despesa.exibirDetalhes();
+        }
+        System.out.print("Digite o ID do registro a remover: ");
+        int idParaRemover = teclado.nextInt();
+        teclado.nextLine();
+
+        boolean removido = todasDespesas.removeIf(despesa -> despesa.getId() == idParaRemover);
+
+        if (removido) {
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Sucesso] Registro removido.");
+        } else {
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Erro] ID não encontrado.");
+        }
+    } else {
+        System.out.println("\n-----------------------------------");
+        System.out.println("[Erro] Opção inválida. Por favor, escolha 1 ou 2.");
+    }
+}
+```
+
+#### 2.3 - O Método `modificarRegistro()` Completo
+
+Este método irá:
+
+  * Perguntar o tipo de registo a modificar.
+  * Exibir todos os registos com os seus IDs.
+  * Pedir ao utilizador o ID do registo que quer alterar.
+  * Se o ID for encontrado, permite ao utilizador inserir os novos dados e atualiza o objeto.
+
+**Instruções:**
+
+1.  Copia e cola o código abaixo na tua classe `Principal.java`.
+
+<!-- end list -->
+
+```java
+// Função: Permite ao utilizador modificar o valor e a descrição de um registro pelo seu ID.
+// Utilidade: Garante que os dados corretos são modificados, independentemente da sua posição na lista.
+private static void modificarRegistro(Scanner teclado) {
+    System.out.println("\n-----------------------------------");
+    System.out.println("=== MODIFICAR REGISTRO ===");
+    System.out.println("[1] Modificar Capital");
+    System.out.println("[2] Modificar Despesa");
+    System.out.print("Escolha o tipo de registro a modificar: ");
+
+    int tipoModificar = teclado.nextInt();
+    teclado.nextLine();
+
+    if ((tipoModificar == 1 && todosCapitais.isEmpty()) || (tipoModificar == 2 && todasDespesas.isEmpty())) {
+        System.out.println("\n-----------------------------------");
+        System.out.println("[Erro] Não há registros para modificar.");
+        return;
+    }
+
+    if (tipoModificar == 1) {
+        System.out.println("\n-----------------------------------");
+        System.out.println("=== Capitais Registrados ===");
+        // Mostra a lista com os IDs
+        for (Capital capital : todosCapitais) {
+            System.out.printf("[ID: %d] ", capital.getId());
+            capital.exibirDetalhes();
+        }
+        System.out.print("Digite o ID do registro a modificar: ");
+        int idParaModificar = teclado.nextInt();
+        teclado.nextLine();
+
+        Capital capitalParaModificar = null;
+        // Percorre a lista para encontrar o Capital com o ID correspondente
+        for (Capital capital : todosCapitais) {
+            if (capital.getId() == idParaModificar) {
+                capitalParaModificar = capital;
+                break; // Sai do loop assim que o encontra
+            }
+        }
+
+        if (capitalParaModificar != null) {
+            System.out.print("Digite o novo valor: ");
+            double novoValor = teclado.nextDouble();
+            teclado.nextLine();
+            System.out.print("Digite a nova descrição: ");
+            String novaDescricao = teclado.nextLine();
+
+            // Usa os setters para modificar os dados
+            capitalParaModificar.setValor(novoValor);
+            capitalParaModificar.setDescricao(novaDescricao);
+
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Sucesso] Registro modificado com sucesso!");
+        } else {
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Erro] ID não encontrado.");
+        }
+    } else if (tipoModificar == 2) {
+        System.out.println("\n-----------------------------------");
+        System.out.println("=== Despesas Registradas ===");
+        for (Despesa despesa : todasDespesas) {
+            System.out.printf("[ID: %d] ", despesa.getId());
+            despesa.exibirDetalhes();
+        }
+        System.out.print("Digite o ID do registro a modificar: ");
+        int idParaModificar = teclado.nextInt();
+        teclado.nextLine();
+
+        Despesa despesaParaModificar = null;
+        for (Despesa despesa : todasDespesas) {
+            if (despesa.getId() == idParaModificar) {
+                despesaParaModificar = despesa;
+                break;
+            }
+        }
+
+        if (despesaParaModificar != null) {
+            System.out.print("Digite o novo valor: ");
+            double novoValor = teclado.nextDouble();
+            teclado.nextLine();
+            System.out.print("Digite a nova descrição: ");
+            String novaDescricao = teclado.nextLine();
+
+            despesaParaModificar.setValor(novoValor);
+            despesaParaModificar.setDescricao(novaDescricao);
+
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Sucesso] Registro modificado com sucesso!");
+        } else {
+            System.out.println("\n-----------------------------------");
+            System.out.println("[Erro] ID não encontrado.");
+        }
+    } else {
+        System.out.println("\n-----------------------------------");
+        System.out.println("[Erro] Opção inválida. Por favor, escolha 1 ou 2.");
+    }
+}
+```
+
+Agora o teu aplicativo está mais robusto e fácil de usar. Podes remover e modificar registos com segurança, sabendo que os IDs são únicos e não vão causar problemas.
+
+Quando estiveres pronto para o próximo passo, que é a persistência de dados, avisa-me. A tua estrutura atual com IDs e as duas grandes listas é a base perfeita para salvar e carregar dados em ficheiros.

@@ -20,6 +20,10 @@ public class DespesaFixa extends Despesa {
 			}
 			
 		@Override
+		public String getTipo() {
+				return "Despesa Fixa";
+			}
+		@Override
 		public void exibirDetalhes() {
 				System.out.printf("Total Despesa Fixa: R$ %.2f\n", getValor());
 			}

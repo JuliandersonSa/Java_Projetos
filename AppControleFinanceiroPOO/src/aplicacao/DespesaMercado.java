@@ -33,6 +33,10 @@ public class DespesaMercado extends Despesa {
 			} //fecha-método-TipoPagamento		
 			
 		@Override
+		public String getTipo() {
+				return "Despesa Mercado";
+			}
+		@Override
 		public void exibirDetalhes() {
 				System.out.printf("Total Despesa Mercado: R$ %.2f\n", getValor());
 			}

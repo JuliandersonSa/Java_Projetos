@@ -7,6 +7,10 @@ public class CapitalValeTransporte extends Capital {
 			}
 			
 		@Override
+		public String getTipo() {
+				return "Vale Transporte";
+			}
+		@Override
 		public void exibirDetalhes() {
 				System.out.printf("Total Vale Transporte: R$ $.2f\n", getValor());
 			}

@@ -11,7 +11,14 @@ public class CapitalExtra extends Capital {
 			} //fecha-método-construtor
 			
 		@Override
+		public String getTipo() {
+				return "Extras";
+			}
+		@Override
 		public void exibirDetalhes() {
-				System.out.printf("Total Extra: R$ %.2f\n", getValor());
+				System.out.println("===RELATÓRIO CAPITAL EXTRA===");
+				System.out.printf("Valor: R$ %.2f\n", getValor());
+				System.out.printf("Descrição: %s\n", getDescricao());
+
 			}
 	} //fecha-classe-Extra

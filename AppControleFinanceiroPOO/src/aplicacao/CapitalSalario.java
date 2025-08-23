@@ -7,7 +7,13 @@ public class CapitalSalario extends Capital {
 			}
 			
 		@Override
+		public String getTipo() {
+				return "Salário";
+			}
+		@Override
 		public void exibirDetalhes() {
-				System.out.printf("Total Salário: R$ %.2f\n", getValor());
+				System.out.println("===RELATÓRIO CAPITAL SALÁRIO===");
+				System.out.printf("Valor: R$ %.2f\n", getValor());
+				System.out.printf("Descrição: %s\n", getDescricao());
 			}
 	}//fecha-classe-CapitalSalario
